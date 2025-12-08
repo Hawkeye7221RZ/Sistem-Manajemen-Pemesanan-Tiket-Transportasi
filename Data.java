@@ -7,10 +7,10 @@ public class Data {
         String pesawat;
         String asal;
         String tujuan;
-        double harga;
+        int harga;
         String tanggal;
 
-        public Flight(String inputid, String inputpesawat, String inputasal, String inputtujuan, double inputharga, String inputtanggal) {
+        public Flight(String inputid, String inputpesawat, String inputasal, String inputtujuan, int inputharga, String inputtanggal) {
             id = inputid;
             pesawat = inputpesawat;
             asal = inputasal;
@@ -38,9 +38,9 @@ public class Data {
         String nama;
         Flight flight;
 
-        public Booking(String nama, Flight flight) {
-            this.nama = nama;
-            this.flight = flight;
+        public Booking(String inputnama, Flight inputflight) {
+            nama = inputnama;
+            flight = inputflight;
         }
 
         public String toString() {
@@ -59,6 +59,7 @@ public class Data {
         flights.add(new Flight("F001", "Garuda", "Jakarta", "Bali", 1200000, "25-12-2025"));
         flights.add(new Flight("F002", "Lion Air", "Bandung", "Surabaya", 850000, "10-01-2026"));
         flights.add(new Flight("F003", "AirAsia", "Jakarta", "Singapore", 1500000, "05-02-2026"));
+        flights.add(new Flight("F004", "CitiLink", "Jakarta", "Pontianak", 2000000, "21-02-2026"));
 
         while (true) {
             System.out.println("\n=== SISTEM PEMESANAN TIKET PESAWAT ===");
