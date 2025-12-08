@@ -8,7 +8,7 @@ public class Data {
 
         System.out.print("Masukkan jumlah data penerbangan: ");
         int jumlah = input.nextInt();
-        input.nextLine(); // clear buffer
+        input.nextLine(); 
 
         for(int i = 0; i < jumlah; i++){
             System.out.println("Data penerbangan ke-" + (i + 1));
@@ -25,11 +25,9 @@ public class Data {
             System.out.print("Masukkan waktu penerbangan: ");
             String waktu = input.nextLine();
 
-            // masukkan ke ArrayList
             flights.add(new Flight(kode, asal, tujuan, waktu));
         }
 
-        // Optional: Menampilkan semua input
         System.out.println("\n=== DATA PENERBANGAN ===");
         for (Flight f : flights) {
             System.out.println(f);
