@@ -1,10 +1,8 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Data {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
-        ArrayList<Flight> flights = new ArrayList<Flight>();
 
         System.out.print("Masukkan jumlah data penerbangan: ");
         int jumlah = input.nextInt();
