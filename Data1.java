@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Data1 {
 
@@ -7,42 +8,57 @@ public class Data1 {
         String asal;
         String tujuan;
         int harga;
-        String tanggal;
+        int bulan;
+        int tanggal;
 
         public Flight(String inputId, String inputPesawat,
                       String inputAsal, String inputTujuan,
-                      int inputHarga, String inputTanggal) {
+                      int inputHarga, int inputTanggal, int inputbulan) {
 
             id = inputId;
             pesawat = inputPesawat;
             asal = inputAsal;
             tujuan = inputTujuan;
             harga = inputHarga;
+            bulan = inputbulan;
             tanggal = inputTanggal;
         }
 
-        public String getId() {
-            return id;
-        }
+        public String getId() { return id; }
+        public String getAsal() { return asal; }
+        public String getTujuan() { return tujuan; }
     }
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        ArrayList<Flight> list = new ArrayList<>();
+        int jumlahh = input.nextInt();
+        
+        
+        for (int i = 0; i < jumlahh; i++) {
+            System.out.println("\n----Penerbangan ke-" + (i + 1)+ "----");
+            System.out.print("ID: ");
+            String id = input.next();
+            System.out.print("Pesawat: ");
+            String pesawat = input.next();
+            System.out.print("Asal: ");
+            String asal = input.next();
+            System.out.print("Tujuan: ");
+            String tujuan = input.next();
+            System.out.print("Harga: ");
+            int harga = input.nextInt();
+            System.out.print("Tanggal: ");
+            String tanggal = input.next();
 
-        Flight f1 = new Flight(
-                "GA123",
-                "Garuda Indonesia",
-                "Jakarta",
-                "Bali",
-                1500000,
-                "10 Desember 2025"
-        );
-
-        // Print data untuk memastikan
-        System.out.println("ID        : " + f1.getId());
-        System.out.println("Pesawat   : " + f1.pesawat);
-        System.out.println("Asal      : " + f1.asal);
-        System.out.println("Tujuan    : " + f1.tujuan);
-        System.out.println("Harga     : " + f1.harga);
-        System.out.println("Tanggal   : " + f1.tanggal);
+             list.add(new Flight(id, pesawat, asal, tujuan, harga, tanggal));
+        }
+            System.out.println("===== Data Penerbangan =====");
+            int jumlah= input.nextInt();
+            for (Flight f : list) {
+                System.out.println("\n---------------------------");
+                System.out.println("ID: " + f.getId());
+                System.out.println("Asal: " + f.getAsal());
+                System.out.println("Tujuan: " + f.getTujuan());
+            }
+        }
     }
-}
