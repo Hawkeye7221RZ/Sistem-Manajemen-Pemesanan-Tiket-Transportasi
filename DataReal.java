@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class Data1 {
+public class DataReal {
 
     static class Flight {
         String id;
@@ -27,18 +27,24 @@ public class Data1 {
         public String getId() { return id; }
         public String getAsal() { return asal; }
         public String getTujuan() { return tujuan; }
+        public int getHarga() { return harga; }
+        public String getPesawat() { return pesawat; }
+        public int getbulan() { return bulan; }
+        public int getTanggal() { return tanggal; } 
     }
 
-    public static void main(String[] args) {
+    public static ArrayList<Flight> inputData() {
         Scanner input = new Scanner(System.in);
         ArrayList<Flight> list = new ArrayList<>();
-        int jumlahh = input.nextInt();
-        
-        
-        for (int i = 0; i < jumlahh; i++) {
-            System.out.println("\n----Penerbangan ke-" + (i + 1)+ "----");
+           while (true) {
+            System.out.println("\n--- Input Data Penerbangan (ketik 'stop' untuk selesai) ---");
             System.out.print("ID: ");
             String id = input.next();
+
+            if (id.equalsIgnoreCase("stop")) {
+                break;
+            }
+
             System.out.print("Pesawat: ");
             String pesawat = input.next();
             System.out.print("Asal: ");
@@ -48,17 +54,17 @@ public class Data1 {
             System.out.print("Harga: ");
             int harga = input.nextInt();
             System.out.print("Tanggal: ");
-            String tanggal = input.next();
+            int tanggal = input.nextInt();
+            System.out.print("Bulan: ");
+            int bulan = input.nextInt();
 
-             list.add(new Flight(id, pesawat, asal, tujuan, harga, tanggal));
+            list.add(new Flight(id, pesawat, asal, tujuan, harga, tanggal, bulan));
         }
-            System.out.println("===== Data Penerbangan =====");
-            int jumlah= input.nextInt();
-            for (Flight f : list) {
-                System.out.println("\n---------------------------");
-                System.out.println("ID: " + f.getId());
-                System.out.println("Asal: " + f.getAsal());
-                System.out.println("Tujuan: " + f.getTujuan());
-            }
-        }
+
+        return list;
     }
+
+    public static void main(String[] args) {
+        ArrayList<Flight> data = inputData();
+    }
+}

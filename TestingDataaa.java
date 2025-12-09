@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TestingDataa {
+public class TestingDataaa {
     static class Flight {
         String id;
         String pesawat;
