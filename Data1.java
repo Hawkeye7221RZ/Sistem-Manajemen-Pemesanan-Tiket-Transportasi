@@ -50,7 +50,7 @@ public class Data1 {
             System.out.print("Tanggal: ");
             String tanggal = input.next();
 
-             list.add(new Flight(id, pesawat, asal, tujuan, harga, tanggall));
+             list.add(new Flight(id, pesawat, asal, tujuan, harga, tanggal));
         }
             System.out.println("===== Data Penerbangan =====");
             int jumlah= input.nextInt();
