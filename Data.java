@@ -26,69 +26,191 @@ public class Data {
         public int getHarga() { return harga; }
         public String getTanggal() { return tanggal; }
 
-        public String toString() {
-            return "\nID: " + id +
-                   "\nPesawat: " + pesawat +
-                   "\nAsal: " + asal +
-                   "\nTujuan: " + tujuan +
-                   "\nHarga: Rp " + harga +
-                   "\nTanggal keberangkatan: " + tanggal +
-                   "\n--------------------------";
-        }
     }
 
-    static class Booking {
-        String nama;
-        Flight flight;
+    static Flight[] flights = new Flight[100];
+    static int count = 0;
+    static Scanner sc = new Scanner(System.in);
 
-        public Booking(String nama, Flight flight) {
-            this.nama = nama;
-            this.flight = flight;
-        }
-
-        public String toString() {
-            return "Nama: " + nama + "\nDetail: " + flight.toString();
-        }
+    public static void tampilkanDetailFlight(Flight x) {
+        System.out.println("\nID: " + x.getId());
+        System.out.println("Pesawat: " + x.getPesawat());
+        System.out.println("Asal: " + x.getAsal());
+        System.out.println("Tujuan: " + x.getTujuan());
+        System.out.println("Harga: Rp " + x.getHarga());
+        System.out.println("Tanggal keberangkatan: " + x.getTanggal());
+        System.out.println("--------------------------");
     }
 
-    // ===== TANPA ARRAYLIST =====
-    static Flight[] flights = new Flight[100];      
-    static Booking[] bookings = new Booking[100];  
+    public static void tampilkanDetailFlightSingkat(Flight x) {
+        System.out.println(x.getId() + " | " + x.getAsal() + " | " + x.getTujuan() + 
+                         " | Rp " + x.getHarga() + " | " + x.getTanggal());
+    }
 
-    static int flightCount = 0;
-    static int bookingCount = 0;
+    public static void tampilkanMenu() {
+        System.out.println("\n=== SISTEM DATA PENERBANGAN ===");
+        System.out.println("1. Tambah Penerbangan");
+        System.out.println("2. Tampilkan Semua Penerbangan");
+        System.out.println("3. Cari Penerbangan by ID");
+        System.out.println("4. Cari Penerbangan by Rute");
+        System.out.println("5. Keluar");
+        System.out.print("Pilih menu: ");
+    }
 
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+    public static void tampilkanHeader(String judul) {
+        System.out.println("\n=== " + judul + " ===");
+    }
 
-        flights[flightCount++] = new Flight("F001", "Garuda", "Jakarta", "Bali", 1200000, "25-12-2025");
-        flights[flightCount++] = new Flight("F002", "Lion Air", "Bandung", "Surabaya", 850000, "10-01-2026");
-        flights[flightCount++] = new Flight("F003", "AirAsia", "Jakarta", "Singapore", 1500000, "05-02-2026");
-        flights[flightCount++] = new Flight("F004", "CitiLink", "Jakarta", "Pontianak", 2000000, "21-02-2026");
+    public static String inputString(String a) {
+        System.out.print(a);
+        return sc.nextLine();
+    }
 
-        while (true) {
-            System.out.println("\n=== SISTEM PEMESANAN TIKET PESAWAT ===");
-            System.out.println("1. Lihat Semua Penerbangan");
-            System.out.println("2. Cari Penerbangan");
-            System.out.println("3. Pesan Tiket");
-            System.out.println("4. Riwayat Pemesanan");
-            System.out.println("5. Keluar");
-            System.out.print("Pilih menu: ");
-            int pilih = input.nextInt();
-            input.nextLine();
+    public static int inputInt(String b) {
+        System.out.print(b);
+        int value = sc.nextInt();
+        sc.nextLine();
+        return value;
+    }
 
-            switch (pilih) {
-                case 1 -> tampilkanSemua();
-                case 2 -> cariPenerbangan(input);
-                case 3 -> pesanTiket(input);
-                case 4 -> tampilkanRiwayat();
-                case 5 -> {
-                    System.out.println("Terima kasih!");
-                    return;
-                }
-                default -> System.out.println("Pilihan tidak valid!");
+    public static Flight inputDataFlight() {
+        String id = inputString("ID: ");
+        String pesawat = inputString("Pesawat: ");
+        String asal = inputString("Asal: ");
+        String tujuan = inputString("Tujuan: ");
+        int harga = inputInt("Harga: ");
+        String tanggal = inputString("Tanggal (DD-MM-YYYY): ");
+        
+        return new Flight(id, pesawat, asal, tujuan, harga, tanggal);
+    }
+
+    public static boolean isDataPenuh() {
+        return count >= flights.length;
+    }
+
+    public static boolean isDataKosong() {
+        return count == 0;
+    }
+
+    public static int cariIndexById(String id) {
+        for (int i = 0; i < count; i++) {
+            if (flights[i].getId().equals(id)) {
+                return i;
             }
         }
+        return -1;
     }
 
-   
+    public static void tambahFlight() {
+        tampilkanHeader("TAMBAH PENERBANGAN");
+        
+        if (isDataPenuh()) {
+            System.out.println("Data penuh! Tidak bisa menambah penerbangan.");
+            return;
+        }
+
+        Flight flight = inputDataFlight();
+        flights[count] = flight;
+        count++;
+        System.out.println("Data penerbangan berhasil ditambahkan!");
+    }
+
+    public static void tampilkanSemuaFlight() {
+        tampilkanHeader("DAFTAR PENERBANGAN");
+        
+        if (isDataKosong()) {
+            System.out.println("Belum ada data penerbangan.");
+            return;
+        }
+
+        for (int i = 0; i < count; i++) {
+            tampilkanDetailFlight(flights[i]);
+        }
+        System.out.println("Total: " + count + " penerbangan");
+    }
+
+    public static void cariFlight() {
+        tampilkanHeader("CARI PENERBANGAN BY ID");
+        
+        if (isDataKosong()) {
+            System.out.println("Belum ada data penerbangan.");
+            return;
+        }
+
+        String id = inputString("Masukkan ID: ");
+        int index = cariIndexById(id);
+
+        if (index != -1) {
+            System.out.println("\nPenerbangan ditemukan:");
+            tampilkanDetailFlight(flights[index]);
+        } else {
+            System.out.println(" Penerbangan dengan ID " + id + " tidak ditemukan.");
+        }
+    }
+    public static void carirute(){
+        tampilkanHeader("CARI PENERBANGAN BY RUTE");
+        
+        if (isDataKosong()) {
+            System.out.println("Belum ada data penerbangan.");
+            return;
+        }
+
+        String asal = inputString("Masukkan Kota Asal: ");
+        String tujuan = inputString("Masukkan Kota Tujuan: ");
+        boolean ditemukan = false;
+
+        System.out.println("\nHasil pencarian untuk rute " + asal + " | " + tujuan + ":");
+        for (int i = 0; i < count; i++) {
+            if (flights[i].getAsal().equalsIgnoreCase(asal) || flights[i].getTujuan().equalsIgnoreCase(tujuan)) {
+                tampilkanDetailFlightSingkat(flights[i]);
+                ditemukan = true;
+            }
+        }
+
+        if (!ditemukan) {
+            System.out.println("Tidak ada penerbangan ditemukan untuk rute tersebut.");
+        }
+    }
+    public static void prosesPilihan(int pilihan) {
+        switch (pilihan) {
+            case 1:
+                tambahFlight();
+                break;
+            case 2:
+                tampilkanSemuaFlight();
+                break;
+            case 3:
+                cariFlight();
+                break;
+            case 4:
+                carirute();
+                break;
+            case 5:
+                tampilkanPesanKeluar();
+                break;
+            default:
+                System.out.println("Pilihan tidak valid!");
+        }
+    }
+
+    public static void tampilkanPesanKeluar() {
+        System.out.println("\n=================================");
+        System.out.println("Terima kasih telah menggunakan sistem!");
+        System.out.println("=================================");
+    }
+
+    public static void jalankanProgram() {
+        int pilihan;
+        do {
+            tampilkanMenu();
+            pilihan = sc.nextInt();
+            sc.nextLine();
+            prosesPilihan(pilihan);
+        } while (pilihan != 5);
+    }
+
+    public static void main(String[] args) {
+        jalankanProgram();
+        sc.close();
+    }
+}
