@@ -1,8 +1,7 @@
 package SMPTT;
 
-import java.util.Scanner;
-
 import SMPTT.data.Flight;
+import java.util.Scanner;
 
 public class pencarian_data {
 
@@ -51,7 +50,7 @@ public class pencarian_data {
 
         System.out.println("\nHasil pencarian untuk rute " + asal + " | " + tujuan + ":");
         for (int i = 0; i < data.count; i++) {
-            if (data.flights[i].getAsal().equalsIgnoreCase(asal) || data.flights[i].getTujuan().equalsIgnoreCase(tujuan)) {
+            if (data.flights[i].getAsal().equalsIgnoreCase(asal) && data.flights[i].getTujuan().equalsIgnoreCase(tujuan)) {
                 tampilkanDetailFlightSingkat(data.flights[i]);
                 ditemukan = true;
             }
